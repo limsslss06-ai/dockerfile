@@ -43,11 +43,39 @@ class DockerImageBuilder:
             if print_output:
                 print(" ".join(cmd))
 
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            result = subprocess.run(
+                cmd, capture_output=True, text=True, encoding="utf-8", errors="replace"
+            )
             if result.returncode != 0:
                 print(f"Error building Dockerfile ({df}): {result.stderr}")
             else:
                 print(f"Successfully built Dockerfile ({df})")
+
+    def build_single_image(self, dockerfile_path, print_output=True):
+        """build a single docker image"""
+        image_name = self.__default_naming(dockerfile_path)
+        cmd = [
+            "docker",
+            "build",
+            "-f",
+            dockerfile_path,
+            "-t",
+            image_name,
+            self.build_context,
+        ]
+        if self.build_args:
+            for k, v in self.build_args.items():
+                cmd.extend(["--build-arg", f"{k}={v}"])
+        if print_output:
+            print(" ".join(cmd))
+
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, encoding="utf-8", errors="replace"
+        )
+        if result.returncode != 0:
+            print(f"Error building Dockerfile ({dockerfile_path}): {result.stderr}")
+        else:
+            print(f"Successfully built Dockerfile ({dockerfile_path})")
 
     def __get_all_Dockerfile_under_search_path(self):
         """
