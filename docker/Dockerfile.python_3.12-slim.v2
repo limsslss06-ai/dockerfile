@@ -1,0 +1,9 @@
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements_v1.txt .
+
+RUN pip install --upgrade pip \
+    && pip install -r requirements_v1.txt

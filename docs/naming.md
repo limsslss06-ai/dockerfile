@@ -1,7 +1,7 @@
 # Dockerfile
 
 naming of Dockerfile:
-`Dockerfile.<repository>_<tag>_<ID>`
+`Dockerfile.<repository>_<tag>.<ID>`
 
 # Python
 

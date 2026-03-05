@@ -1,0 +1,20 @@
+FROM python:3.12-slim AS install-git
+WORKDIR /app
+
+# ====== ====== ====== ====== ====== ======
+# ====== Stage 1: Install git ======
+# update and install git
+# install git 
+# delete cache to reduce image size
+RUN apt-get update && \
+    apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/*
+
+# ====== ====== ====== ====== ====== ======
+# ====== Stage 2: Install Python dependencies ======
+FROM install-git AS install-python-deps
+COPY requirements_v2.txt .
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements_v2.txt
+
+FROM install-python-deps AS final

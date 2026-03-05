@@ -14,5 +14,5 @@ builder = DockerImageBuilder(
     build_args={"PYTHON_VERSION": "3.12"},  # 可选 build-arg
 )
 
-builder.build_single_image(dockerfile_path="../../../docker/Dockerfile.python_3.12-slim_v1", print_output=True)
+builder.build_single_image(dockerfile_path="../../../docker/Dockerfile.python_3.12-slim.v7", print_output=True)
 #builder.build(print_output=True)

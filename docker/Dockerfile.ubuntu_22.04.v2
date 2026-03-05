@@ -1,0 +1,16 @@
+FROM ubuntu:22.04
+
+# Set non-interactive mode for apt-get
+# This prevents prompts during package installation, which can cause the build to hang.
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y \
+        git \
+        build-essential \
+        cmake \
+        ninja-build \
+        ccache \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
