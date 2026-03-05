@@ -13,4 +13,4 @@ RUN apt-get update && \
         ccache \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /workspace
+WORKDIR /app
